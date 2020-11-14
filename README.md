@@ -11,7 +11,7 @@ This final project is a Data visualization exploring the fatalities of cyclist i
 
 This app is deployed to Github pages. And the deployed version can be found here:
 
-[Deployed version](https://google.com)
+[Deployed version](https://dabrad26.github.io/vis-final/)
 
 A GIF can be seen here when complete:
 
