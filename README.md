@@ -1,5 +1,6 @@
 # Final Project
 - INFO-697-02 - Programming Interactive Viz
+- David Bradshaw
 - Pratt Institute
 - Fall 2020
 
@@ -34,7 +35,3 @@ GIF GOES HERE
 ## Linting
 
 - Run `npm run lint`
-
-## Deploying
-
-- Run `npm run deploy`
