@@ -1,0 +1,28 @@
+@import '~normalize.css/normalize';
+@import 'vars';
+
+body {
+  @include paragraph();
+
+  padding: $spacing-body;
+}
+
+p {
+  @include paragraph();
+}
+
+a {
+  @include link();
+}
+
+h1 {
+  @include h1();
+}
+
+h2 {
+  @include h2();
+}
+
+h3 {
+  @include h3();
+}

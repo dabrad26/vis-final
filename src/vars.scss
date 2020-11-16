@@ -1,0 +1,59 @@
+// Colors
+$color-text: #292929;
+$color-bg: #73E2B8;
+$color-head: #96673E;
+$color-head-accent: #E3A168;
+$color-inter: #965C74;
+$color-inter-accent: #E37FA8;
+
+// Spacing
+$spacing-body: 24px;
+$spacing-box: 20px;
+$spacing-text: 16px;
+
+// Typograhy
+$font-family: 'Oswald', sans-serif;
+
+@mixin paragraph() {
+  font-family: $font-family;
+  font-weight: normal;
+  font-size: 16px;
+  color: $color-text;
+  padding: 0;
+  margin: 0 0 $spacing-text 0;
+}
+
+@mixin h1() {
+  font-family: $font-family;
+  font-weight: bold;
+  font-size: 24px;
+  color: $color-head;
+  padding: 0;
+  margin: 0 0 $spacing-text 0;
+}
+
+@mixin h2() {
+  font-family: $font-family;
+  font-weight: bold;
+  font-size: 20px;
+  color: $color-head;
+  padding: 0;
+  margin: 0 0 $spacing-text 0;
+}
+
+@mixin h3() {
+  font-family: $font-family;
+  font-weight: bold;
+  font-size: 18px;
+  color: $color-head;
+  padding: 0;
+  margin: 0 0 $spacing-text 0;
+}
+
+@mixin link() {
+  color: $color-inter;
+
+  &:hover, &:active {
+    color: $color-inter-accent;
+  }
+}
