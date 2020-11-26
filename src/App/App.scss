@@ -1,0 +1,26 @@
+@import '../vars';
+
+.full-screen-loading {
+  display: block;
+  margin: 90px auto;
+
+  &.ant-spin-lg .ant-spin-dot {
+    font-size: 80px;
+  }
+
+  &.ant-spin-lg .ant-spin-dot i {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+.ant-drawer.ant-drawer-right.ant-drawer-open {
+  width: 0;
+  .ant-drawer-mask {
+    display: none;
+  }
+}
+
+.primary-content {
+  width: calc(100vw - 380px - (#{$spacing-body} * 2));
+}

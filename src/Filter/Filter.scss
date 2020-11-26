@@ -1,0 +1,20 @@
+
+.filter-wrapper {
+  .ant-checkbox-group {
+    padding: 8px 16px;
+    .ant-checkbox-wrapper {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  .helper-text {
+    font-size: 12px;
+    font-style: italic;
+    padding-left: 8px;
+  }
+
+  .ant-list {
+    margin-top: 16px;
+  }
+}

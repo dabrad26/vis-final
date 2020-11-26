@@ -1,4 +1,5 @@
 @import '~normalize.css/normalize';
+@import '~antd/dist/antd.css';
 @import 'vars';
 
 body {
@@ -25,4 +26,16 @@ h2 {
 
 h3 {
   @include h3();
+}
+
+// For now just turn off filter and allow full width body.
+// In future use nav bar to toggle them back on
+.mobile-styles {
+  .ant-drawer.ant-drawer-right.ant-drawer-open {
+    display: none;
+  }
+
+  .primary-content {
+    width: 100%;
+  }
 }

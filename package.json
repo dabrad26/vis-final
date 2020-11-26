@@ -8,10 +8,12 @@
   },
   "private": true,
   "dependencies": {
+    "@types/antd": "^1.0.0",
     "@types/d3": "^6.1.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "antd": "^4.8.5",
     "d3": "^6.2.0",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
