@@ -122,7 +122,7 @@ export default class App extends React.Component {
     const {forceGraphUpdate} = this.state;
     return (
       <div className="primary-content">
-        <h1>Title</h1>
+        <h1>Pedestrian and Cyclist Accidents In New York City and other Major Cities</h1>
         <p>Intro text</p>
         <GraphTimeStackedBar data={this.dataToUse} forceUpdate={forceGraphUpdate} />
         <p>Summary of graph above</p>

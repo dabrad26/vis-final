@@ -6,14 +6,14 @@
 
 ## Overview
 
-This final project is a Data visualization exploring the fatalities of cyclist in New York City and creating a narrative about the issue and efforts to end accidents.  This was the final project for a graduate level class working toward a Masters in Information Experience Design (UX).
+This final project is a Data visualization exploring the fatalities of pedestrians and cyclist in New York City and creating a narrative about the issue and efforts to end accidents.  This was the final project for a graduate level class working toward a Masters in Information Experience Design.
 
 ## Style Guide
 
 A PDF and Sketch Style Guide is included which defines the layout of the site.
 
-- [PDF Version](./Style_Guide/Style_Guide.pdf)
-- [Sketch Version](./Style_Guide/Style_Guide.sketch)
+- [PDF Version](./Design/Style_Guide.pdf)
+- [Sketch Version](./Design/Style_Guide.sketch)
 
 ## Final Submission
 
