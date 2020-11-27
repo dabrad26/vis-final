@@ -7,6 +7,7 @@ export interface FilterSettings {
   status: string[];
   age: string[];
   city: string[];
+  sex: string[];
 }
 
 export interface FilterProps {
@@ -26,6 +27,7 @@ export default class Filter extends React.Component<FilterProps> {
     status: [],
     age: [],
     city: [],
+    sex: [],
   };
 
   dataSources = [
@@ -38,15 +40,21 @@ export default class Filter extends React.Component<FilterProps> {
   ]
 
   cityOptions = [
-    {label: 'New York City', value: 'nyc'},
-    {label: 'Los Angeles, California', value: 'losAngeles'},
-    {label: 'Chicago, Illinois', value: 'chicago'},
+    {label: <span className="checkbox-label-color nyc">New York City</span>, value: 'nyc'},
+    {label: <span className="checkbox-label-color la">Los Angeles, California</span>, value: 'losAngeles'},
+    {label: <span className="checkbox-label-color chicago">Chicago, Illinois</span>, value: 'chicago'},
   ];
 
   statusOptions = [
     {label: <span className="checkbox-label-color killed">Killed (including deceased from injuries)</span>, value: 'KILLED'},
     {label: <span className="checkbox-label-color injured">Injured (reported or visible)</span>, value: 'INJURED'},
     {label: <span className="checkbox-label-color none">Not hurt (no report of injury)</span>, value: 'NONE'},
+  ];
+
+  sexOptions = [
+    {label: 'Female', value: 'F'},
+    {label: 'Male', value: 'M'},
+    {label: 'Unknown/Other', value: 'X'},
   ];
 
   ageOptions = [
@@ -65,7 +73,7 @@ export default class Filter extends React.Component<FilterProps> {
     {label: 'Senior (81+)', value: '[81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102]'},
   ];
 
-  onChange = (selected: CheckboxValueType[], group: 'status'|'age'|'city'): void => {
+  onChange = (selected: CheckboxValueType[], group: 'status'|'age'|'city'|'sex'): void => {
     const {onChange} = this.props;
     this.currentSetting[group] = selected as string[];
     onChange(this.currentSetting);
@@ -85,6 +93,8 @@ export default class Filter extends React.Component<FilterProps> {
         <Checkbox.Group options={this.statusOptions} defaultValue={this.currentSetting.status} onChange={event => this.onChange(event, 'status')} />
         <div className="label">Age of individual</div>
         <Checkbox.Group options={this.ageOptions} defaultValue={this.currentSetting.age} onChange={event => this.onChange(event, 'age')} />
+        <div className="label">Gender of individual</div>
+        <Checkbox.Group options={this.sexOptions} defaultValue={this.currentSetting.sex} onChange={event => this.onChange(event, 'sex')} />
         <div className="label">Cities to include</div>
         <div className="helper-text">This study focuses on New York City, but for comparison other cities are available.</div>
         <Checkbox.Group options={this.cityOptions} defaultValue={this.currentSetting.city} onChange={event => this.onChange(event, 'city')} />

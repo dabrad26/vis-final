@@ -43,5 +43,20 @@
       @include after-content();
       background-color: #EF5C84;
     }
+
+    &.nyc::after {
+      @include after-content();
+      background-color: #10377b;
+    }
+
+    &.la::after {
+      @include after-content();
+      background-color: #f5bd41;
+    }
+
+    &.chicago::after {
+      @include after-content();
+      background-color: #e32f22;
+    }
   }
 }

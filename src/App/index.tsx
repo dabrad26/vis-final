@@ -26,6 +26,7 @@ export default class App extends React.Component {
   filterSetttings: FilterSettings = {
     status: ['KILLED', 'INJURED', 'NONE'],
     age: ['[0]', '[1,2,3]', '[4,5,6]', '[7,8]', '[9,10,11]', '[12,13,14]', '[15,16,17,18]', '[19,20,21,22,23]', '[24,25,26,27,28,29,30]', '[31,32,33,34,35,36,37,38,39,40,41,42,43,44,45]', '[46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]', '[61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80]', '[81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102]'],
+    sex: ['M', 'F', 'X'],
     city: ['nyc'],
   };
 
@@ -92,7 +93,7 @@ export default class App extends React.Component {
     });
   }
 
-  get dataToUse(): Dataset[] {
+  getDataToUse(specificCity?: 'nyc'|'chicago'|'losAngeles'): Dataset[] {
     let data: Dataset[] = [];
     const validAges: number[] = [];
     this.filterSetttings.age.forEach(ageGroup => {
@@ -106,14 +107,19 @@ export default class App extends React.Component {
       return dataSet.filter(item => {
         return (
           (validAges.indexOf(item.age) > -1) &&
-          (this.filterSetttings.status.indexOf(item.injury) > -1)
+          (this.filterSetttings.status.indexOf(item.injury) > -1) &&
+          (this.filterSetttings.sex.indexOf(item.sex) > -1)
         );
       });
     };
 
-    this.filterSetttings.city.forEach((city) => {
-      data = data.concat(filterData(this.dataSets[city as ('nyc'|'chicago'|'losAngeles')]));
-    });
+    if (specificCity) {
+      data = data.concat(filterData(this.dataSets[specificCity]));
+    } else {
+      this.filterSetttings.city.forEach((city) => {
+        data = data.concat(filterData(this.dataSets[city as ('nyc'|'chicago'|'losAngeles')]));
+      });
+    }
 
     return data;
   }
@@ -121,20 +127,23 @@ export default class App extends React.Component {
   get primaryContent(): React.ReactNode {
     const {forceGraphUpdate, width} = this.state;
     const widthToUse = width < 1080 ? width : (width - (380 + 48));
+    const allowNyc = this.filterSetttings.city.indexOf('nyc') > -1;
+    const allowChicago = this.filterSetttings.city.indexOf('chicago') > -1;
+    const allowLosAngeles = this.filterSetttings.city.indexOf('losAngeles') > -1;
     return (
       <div className="primary-content">
         <h1>Pedestrian and Cyclist Accidents In New York City and other Major Cities</h1>
         <p>Intro text</p>
-        <GraphTimeStackedBar data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
+        <GraphTimeStackedBar data={this.getDataToUse()} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <p>Summary of graph above</p>
-        <GraphTimeGraphics data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
+        <GraphTimeGraphics data={this.getDataToUse()} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <p>Hypothesis on how time alters results</p>
         <h2>Vizion Zero</h2>
         <p>What is Vision Zero</p>
-        <GraphVisionZeroLine data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
+        <GraphVisionZeroLine nycData={allowNyc ? this.getDataToUse('nyc') : []} chicagoData={allowChicago ? this.getDataToUse('chicago') : []} laData={allowLosAngeles ? this.getDataToUse('losAngeles') : []} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <h2>How New York City Compares to other Cities</h2>
         <p>Text about how other cities do it and their performance</p>
-        <GraphCityCompare data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
+        <GraphCityCompare data={this.getDataToUse()} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <h2>Conclusion</h2>
         <p>Conclusion text</p>
       </div>
