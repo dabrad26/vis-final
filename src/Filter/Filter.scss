@@ -17,4 +17,31 @@
   .ant-list {
     margin-top: 16px;
   }
+
+  @mixin after-content {
+    content: '';
+    width: 14px;
+    height: 14px;
+    margin-left: 8px;
+    margin-top: -2px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .checkbox-label-color {
+    &.killed::after {
+      @include after-content();
+      background-color: #800080;
+    }
+
+    &.injured::after {
+      @include after-content();
+      background-color: #FFA500;
+    }
+
+    &.none::after {
+      @include after-content();
+      background-color: #EF5C84;
+    }
+  }
 }

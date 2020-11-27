@@ -14,6 +14,7 @@ export default class App extends React.Component {
     loading: true,
     error: false,
     forceGraphUpdate: 0,
+    width: 1100,
   }
 
   dataSets: {nyc: Dataset[]; chicago: Dataset[]; losAngeles: Dataset[]} = {
@@ -67,8 +68,7 @@ export default class App extends React.Component {
 
   componentDidMount(): void {
     window.addEventListener('resize', () => {
-      const width = document.body.clientWidth;
-      document.querySelector('body')?.classList[width < 1080 ? 'add' : 'remove']('mobile-styles');
+      this.setState({width: document.body.clientWidth});
     });
 
     d3.csv('/vis-final/data/nyc.csv').then((nycData: unknown[]) => {
@@ -77,7 +77,7 @@ export default class App extends React.Component {
         this.dataSets.chicago = chicagoData.map(data => new Dataset(data as Dataset));
         d3.csv('/vis-final/data/los-angeles.csv').then((laData: unknown[]) => {
           this.dataSets.losAngeles = laData.map(data => new Dataset(data as Dataset));
-          this.setState({loading: false});
+          this.setState({loading: false, width: document.body.clientWidth});
         }).catch(error => {
           console.error('Unable to get data for Los Angeles', error);
           this.setState({loading: false, error: true});
@@ -119,21 +119,22 @@ export default class App extends React.Component {
   }
 
   get primaryContent(): React.ReactNode {
-    const {forceGraphUpdate} = this.state;
+    const {forceGraphUpdate, width} = this.state;
+    const widthToUse = width < 1080 ? width : (width - (380 + 48));
     return (
       <div className="primary-content">
         <h1>Pedestrian and Cyclist Accidents In New York City and other Major Cities</h1>
         <p>Intro text</p>
-        <GraphTimeStackedBar data={this.dataToUse} forceUpdate={forceGraphUpdate} />
+        <GraphTimeStackedBar data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <p>Summary of graph above</p>
-        <GraphTimeGraphics data={this.dataToUse} forceUpdate={forceGraphUpdate} />
+        <GraphTimeGraphics data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <p>Hypothesis on how time alters results</p>
         <h2>Vizion Zero</h2>
         <p>What is Vision Zero</p>
-        <GraphVisionZeroLine data={this.dataToUse} forceUpdate={forceGraphUpdate} />
+        <GraphVisionZeroLine data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <h2>How New York City Compares to other Cities</h2>
         <p>Text about how other cities do it and their performance</p>
-        <GraphCityCompare data={this.dataToUse} forceUpdate={forceGraphUpdate} />
+        <GraphCityCompare data={this.dataToUse} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <h2>Conclusion</h2>
         <p>Conclusion text</p>
       </div>
@@ -141,7 +142,7 @@ export default class App extends React.Component {
   }
 
   render(): React.ReactNode {
-    const {loading, error} = this.state;
+    const {loading, error, width} = this.state;
 
     if (error) {
       return this.error;
@@ -149,7 +150,7 @@ export default class App extends React.Component {
       return this.loading;
     } else {
       return (
-        <div className="main-layout">
+        <div className={`main-layout ${width < 1080 ? 'mobile-styles' : ''}`}>
           {this.primaryContent}
           {this.filterDrawer}
         </div>

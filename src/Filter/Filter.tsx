@@ -44,9 +44,9 @@ export default class Filter extends React.Component<FilterProps> {
   ];
 
   statusOptions = [
-    {label: 'Killed (including deceased from injuries)', value: 'KILLED'},
-    {label: 'Injured (reported or visible)', value: 'INJURED'},
-    {label: 'Not hurt (no report of injury)', value: 'NONE'},
+    {label: <span className="checkbox-label-color killed">Killed (including deceased from injuries)</span>, value: 'KILLED'},
+    {label: <span className="checkbox-label-color injured">Injured (reported or visible)</span>, value: 'INJURED'},
+    {label: <span className="checkbox-label-color none">Not hurt (no report of injury)</span>, value: 'NONE'},
   ];
 
   ageOptions = [

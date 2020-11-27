@@ -24,3 +24,17 @@
 .primary-content {
   width: calc(100vw - 380px - (#{$spacing-body} * 2));
 }
+
+#tooltip-wrapper {
+  position: fixed;
+  background: #FFFFFF;
+  border: 1px solid $color-text;
+  padding: 4px;
+  white-space: pre-line;
+  opacity: 0;
+}
+
+.graph-specific-filters {
+  text-align: center;
+  margin-bottom: $spacing-box;
+}

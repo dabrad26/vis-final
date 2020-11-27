@@ -6,13 +6,15 @@ export interface GraphTimeGraphicsProps {
   data: Dataset[];
   /** Indicator to update graph based on didUpdate (to avoid data check). */
   forceUpdate: number;
+  /** Width to use for the graph */
+  width: number;
 }
 
 export default class GraphTimeGraphics extends React.Component<GraphTimeGraphicsProps> {
 
   componentDidUpdate(prevProps: GraphTimeGraphicsProps): void {
-    const {forceUpdate} = this.props;
-    if (forceUpdate !== prevProps.forceUpdate) this.setState({});
+    const {forceUpdate, width} = this.props;
+    if (forceUpdate !== prevProps.forceUpdate || width !== prevProps.width) this.setState({});
   }
 
   render(): React.ReactNode {
