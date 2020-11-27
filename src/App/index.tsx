@@ -142,8 +142,8 @@ export default class App extends React.Component {
         <p>What is Vision Zero</p>
         <GraphVisionZeroLine nycData={allowNyc ? this.getDataToUse('nyc') : []} chicagoData={allowChicago ? this.getDataToUse('chicago') : []} laData={allowLosAngeles ? this.getDataToUse('losAngeles') : []} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <h2>How New York City Compares to other Cities</h2>
-        <p>Text about how other cities do it and their performance</p>
-        <GraphCityCompare data={this.getDataToUse()} forceUpdate={forceGraphUpdate} width={widthToUse} />
+        <p>Text about how other cities do it and their performance.  Note this only includes data after 2016 since that is the oldest avaialble for New York City.</p>
+        <GraphCityCompare nycData={this.getDataToUse('nyc')} chicagoData={this.getDataToUse('chicago')} laData={this.getDataToUse('losAngeles')} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <h2>Conclusion</h2>
         <p>Conclusion text</p>
       </div>

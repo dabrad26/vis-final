@@ -113,7 +113,7 @@ export default class GraphVisionZeroLine extends React.Component<GraphVisionZero
       .attr('text-anchor', 'middle')
       .attr('font-size', this.textStyle.size)
       .attr('fill', this.textStyle.color)
-      .text('Time of Day');
+      .text('Time');
 
     svgGroup.append('g')
       .call(d3.axisLeft(yScale).tickFormat(d => `${d}`).ticks(8))
