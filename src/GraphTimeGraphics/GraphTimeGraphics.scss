@@ -1,0 +1,45 @@
+$image-size: 210px;
+
+.graph-time-graphics {
+  .graphic-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .image-wrapper {
+      position: relative;
+      height: $image-size;
+      width: $image-size;
+      flex: 0 0 $image-size;
+      margin-right: 26px;
+      margin-bottom: 56px;
+
+      @mixin image-place {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-position: top left;
+        background-repeat: no-repeat;
+        background-size: $image-size;
+      }
+
+      .overlay {
+        @include image-place();
+      }
+
+      .background {
+        @include image-place();
+      }
+
+      .text {
+        text-align: center;
+        position: absolute;
+        bottom: -32px;
+        right: 0;
+        left: 0;
+      }
+    }
+  }
+}

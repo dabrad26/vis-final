@@ -124,9 +124,14 @@ export default class App extends React.Component {
     return data;
   }
 
+  get mobileVersion(): boolean {
+    const {width} = this.state;
+    return width < 1080;
+  }
+
   get primaryContent(): React.ReactNode {
     const {forceGraphUpdate, width} = this.state;
-    const widthToUse = width < 1080 ? width : (width - (380 + 48));
+    const widthToUse = this.mobileVersion ? width : (width - (380 + 48));
     const allowNyc = this.filterSetttings.city.indexOf('nyc') > -1;
     const allowChicago = this.filterSetttings.city.indexOf('chicago') > -1;
     const allowLosAngeles = this.filterSetttings.city.indexOf('losAngeles') > -1;
@@ -151,7 +156,7 @@ export default class App extends React.Component {
   }
 
   render(): React.ReactNode {
-    const {loading, error, width} = this.state;
+    const {loading, error} = this.state;
 
     if (error) {
       return this.error;
@@ -159,9 +164,9 @@ export default class App extends React.Component {
       return this.loading;
     } else {
       return (
-        <div className={`main-layout ${width < 1080 ? 'mobile-styles' : ''}`}>
+        <div className={`main-layout ${this.mobileVersion ? 'mobile-styles' : ''}`}>
           {this.primaryContent}
-          {this.filterDrawer}
+          {!this.mobileVersion && this.filterDrawer}
         </div>
       );
     }

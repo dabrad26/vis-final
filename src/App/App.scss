@@ -23,6 +23,7 @@
 
 .primary-content {
   width: calc(100vw - 380px - (#{$spacing-body} * 2));
+  padding-bottom: $spacing-body;
 }
 
 #tooltip-wrapper {
