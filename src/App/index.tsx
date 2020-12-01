@@ -16,9 +16,11 @@ export default class App extends React.Component {
     forceGraphUpdate: 0,
     width: 1100,
     graphLoading: false,
+    filterOpen: false,
   }
 
   currentTimeout: ReturnType<typeof setTimeout>|undefined;
+  resizeTimeout: ReturnType<typeof setTimeout>|undefined;
 
   dataSets: {nyc: Dataset[]; chicago: Dataset[]; losAngeles: Dataset[]} = {
     nyc: [],
@@ -68,8 +70,18 @@ export default class App extends React.Component {
   }
 
   get filterDrawer(): React.ReactNode {
+    const {filterOpen} = this.state;
     return (
-      <Drawer title="Filters" width={380} closable={false} visible={true}>
+      <Drawer
+        title="Filters"
+        width={380}
+        className={this.mobileVersion ? 'mobile-styles' : ''}
+        closable={this.mobileVersion}
+        visible={this.mobileVersion ? filterOpen : true}
+        onClose={(): void => {
+          if (this.mobileVersion) this.setState({filterOpen: false});
+        }}
+      >
         <Filter initialFilters={this.filterSetttings} onChange={this.filterChange} />
       </Drawer>
     );
@@ -77,11 +89,15 @@ export default class App extends React.Component {
 
   componentWillUnmount(): void {
     if (this.currentTimeout) clearTimeout(this.currentTimeout);
+    if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
   }
 
   componentDidMount(): void {
     window.addEventListener('resize', () => {
-      this.setState({width: document.body.clientWidth});
+      if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = setTimeout(() => {
+        this.setState({width: document.body.clientWidth});
+      }, 300);
     });
 
     d3.csv('/vis-final/data/nyc.csv').then((nycData: unknown[]) => {
@@ -214,8 +230,17 @@ export default class App extends React.Component {
     } else {
       return (
         <div className={`main-layout ${this.mobileVersion ? 'mobile-styles' : ''}`}>
+          {this.mobileVersion && (
+            <div className="mobile-filter-toggle">
+              <Button
+                type="primary"
+                onClick={(): void => {
+                  this.setState({filterOpen: true});
+                }}>View Filters</Button>
+            </div>
+          )}
           {this.primaryContent}
-          {!this.mobileVersion && this.filterDrawer}
+          {this.filterDrawer}
         </div>
       );
     }
