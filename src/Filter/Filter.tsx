@@ -116,6 +116,7 @@ export default class Filter extends React.Component<FilterProps> {
         <Divider />
         <div className="label">Data Sources and Citations</div>
         <List size="small" bordered={true} dataSource={this.dataSources} renderItem={(item: {name: string; link: string}) => <List.Item><a href={item.link} rel="noreferrer" target="_blank">{item.name}</a></List.Item>} />
+        <br />
       </div>
     ) : null;
   }

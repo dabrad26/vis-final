@@ -158,7 +158,7 @@ export default class App extends React.Component {
     return (
       <div className="primary-content">
         {graphLoading && this.graphLoadingScreen}
-        <h1>Pedestrian and Cyclist Accidents In New York City and other Major Cities</h1>
+        <h1>Pedestrian and Cyclist Accidents In New York City Compared to other Major Cities</h1>
         <p>Intro text</p>
         <GraphTimeStackedBar data={this.getDataToUse()} forceUpdate={forceGraphUpdate} width={widthToUse} />
         <p>Summary of graph above</p>

@@ -135,11 +135,11 @@ export default class GraphTimeStackedBar extends React.Component<GraphTimeStacke
       .domain(finalData.map(d => d.name))
       .padding(0.2);
 
-    const categories = ['Killed', 'Injured', 'Not hurt'];
+    const categories = ['Not hurt', 'Injured', 'Killed'];
 
     const color = d3.scaleOrdinal()
       .domain(categories)
-      .range(['#800080', '#FFA500', '#EF5C84']);
+      .range(['#EF5C84', '#FFA500', '#800080']);
 
     const series = d3.stack().keys(categories)(finalData as any);
 

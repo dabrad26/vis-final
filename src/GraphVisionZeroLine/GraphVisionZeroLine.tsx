@@ -27,6 +27,10 @@ export default class GraphVisionZeroLine extends React.Component<GraphVisionZero
     size: '16px',
   };
 
+  formatNumber = (value: number): string => {
+    return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
+
   sortDates = (a: {date: Date}, b: {date: Date}): number => {
     return b.date.getTime() - a.date.getTime();
   }
@@ -116,7 +120,7 @@ export default class GraphVisionZeroLine extends React.Component<GraphVisionZero
       .text('Time');
 
     svgGroup.append('g')
-      .call(d3.axisLeft(yScale).tickFormat(d => `${d}`).ticks(8))
+      .call(d3.axisLeft(yScale).tickFormat(d => `${this.formatNumber(d as number)}`).ticks(8))
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', -60)
