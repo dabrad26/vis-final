@@ -24,6 +24,15 @@
 .primary-content {
   width: calc(100vw - 380px - (#{$spacing-body} * 2));
   padding-bottom: $spacing-body;
+
+  p {
+    max-width: 1024px;
+  }
+
+  .vision-zero-list {
+    max-width: 600px;
+    margin-bottom: $spacing-text;
+  }
 }
 
 #tooltip-wrapper {
