@@ -15,7 +15,10 @@ export default class App extends React.Component {
     error: false,
     forceGraphUpdate: 0,
     width: 1100,
+    graphLoading: false,
   }
+
+  currentTimeout: ReturnType<typeof setTimeout>|undefined;
 
   dataSets: {nyc: Dataset[]; chicago: Dataset[]; losAngeles: Dataset[]} = {
     nyc: [],
@@ -33,7 +36,12 @@ export default class App extends React.Component {
   filterChange = (newFilters: FilterSettings): void => {
     const {forceGraphUpdate} = this.state;
     this.filterSetttings = newFilters;
-    this.setState({forceGraphUpdate: forceGraphUpdate + 1});
+    this.setState({graphLoading: true});
+    if (this.currentTimeout) clearTimeout(this.currentTimeout);
+    this.currentTimeout = setTimeout(() => {
+      this.setState({forceGraphUpdate: forceGraphUpdate + 1, graphLoading: false});
+      this.currentTimeout = undefined;
+    }, 500);
   }
 
   get loading(): React.ReactNode {
@@ -65,6 +73,10 @@ export default class App extends React.Component {
         <Filter initialFilters={this.filterSetttings} onChange={this.filterChange} />
       </Drawer>
     );
+  }
+
+  componentWillUnmount(): void {
+    if (this.currentTimeout) clearTimeout(this.currentTimeout);
   }
 
   componentDidMount(): void {
@@ -129,14 +141,23 @@ export default class App extends React.Component {
     return width < 1080;
   }
 
+  get graphLoadingScreen(): React.ReactNode {
+    return (
+      <div className="loading-overlay">
+        {this.loading}
+      </div>
+    );
+  }
+
   get primaryContent(): React.ReactNode {
-    const {forceGraphUpdate, width} = this.state;
+    const {forceGraphUpdate, width, graphLoading} = this.state;
     const widthToUse = this.mobileVersion ? width : (width - (380 + 48));
     const allowNyc = this.filterSetttings.city.indexOf('nyc') > -1;
     const allowChicago = this.filterSetttings.city.indexOf('chicago') > -1;
     const allowLosAngeles = this.filterSetttings.city.indexOf('losAngeles') > -1;
     return (
       <div className="primary-content">
+        {graphLoading && this.graphLoadingScreen}
         <h1>Pedestrian and Cyclist Accidents In New York City and other Major Cities</h1>
         <p>Intro text</p>
         <GraphTimeStackedBar data={this.getDataToUse()} forceUpdate={forceGraphUpdate} width={widthToUse} />

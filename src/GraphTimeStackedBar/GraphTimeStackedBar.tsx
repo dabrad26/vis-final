@@ -14,7 +14,7 @@ export interface GraphTimeStackedBarProps {
 }
 
 export default class GraphTimeStackedBar extends React.Component<GraphTimeStackedBarProps> {
-  twelveTime = false;
+  twelveTime = true;
   formatNumber = (value: number): string => {
     return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
@@ -197,7 +197,7 @@ export default class GraphTimeStackedBar extends React.Component<GraphTimeStacke
       .text('Time of Day');
 
     svgGroup.append('g')
-      .call(d3.axisLeft(yScale).tickFormat(d => `${d}`).ticks(8))
+      .call(d3.axisLeft(yScale).tickFormat(d => `${this.formatNumber(d as number)}`).ticks(8))
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', -60)

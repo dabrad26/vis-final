@@ -1,6 +1,6 @@
 import './Filter.scss';
 import React from 'react';
-import {Checkbox, Divider, List} from 'antd';
+import {Button, Checkbox, Divider, List} from 'antd';
 import {CheckboxValueType} from 'antd/lib/checkbox/Group';
 
 export interface FilterSettings {
@@ -74,9 +74,23 @@ export default class Filter extends React.Component<FilterProps> {
   ];
 
   onChange = (selected: CheckboxValueType[], group: 'status'|'age'|'city'|'sex'): void => {
-    const {onChange} = this.props;
     this.currentSetting[group] = selected as string[];
+    this.bubbleOnChange();
+  }
+
+  bubbleOnChange = (): void => {
+    const {onChange} = this.props;
+    this.setState({});
     onChange(this.currentSetting);
+  }
+
+  toggleAllAges = (): void => {
+    if (this.currentSetting.age.length >= (this.ageOptions.length / 2)) {
+      this.currentSetting.age = [];
+    } else {
+      this.currentSetting.age = this.ageOptions.map(age => age.value);
+    }
+    this.bubbleOnChange();
   }
 
   componentDidMount(): void {
@@ -90,14 +104,15 @@ export default class Filter extends React.Component<FilterProps> {
     return ready ? (
       <div className="filter-wrapper">
         <div className="label">Status of individual</div>
-        <Checkbox.Group options={this.statusOptions} defaultValue={this.currentSetting.status} onChange={event => this.onChange(event, 'status')} />
+        <Checkbox.Group options={this.statusOptions} value={this.currentSetting.status} onChange={event => this.onChange(event, 'status')} />
         <div className="label">Age of individual</div>
-        <Checkbox.Group options={this.ageOptions} defaultValue={this.currentSetting.age} onChange={event => this.onChange(event, 'age')} />
+        <Button type="link" onClick={this.toggleAllAges}>Toggle all</Button>
+        <Checkbox.Group className="has-toggle-button" options={this.ageOptions} value={this.currentSetting.age} onChange={event => this.onChange(event, 'age')} />
         <div className="label">Gender of individual</div>
-        <Checkbox.Group options={this.sexOptions} defaultValue={this.currentSetting.sex} onChange={event => this.onChange(event, 'sex')} />
+        <Checkbox.Group options={this.sexOptions} value={this.currentSetting.sex} onChange={event => this.onChange(event, 'sex')} />
         <div className="label">Cities to include</div>
         <div className="helper-text">This study focuses on New York City, but for comparison other cities are available.</div>
-        <Checkbox.Group options={this.cityOptions} defaultValue={this.currentSetting.city} onChange={event => this.onChange(event, 'city')} />
+        <Checkbox.Group options={this.cityOptions} value={this.currentSetting.city} onChange={event => this.onChange(event, 'city')} />
         <Divider />
         <div className="label">Data Sources and Citations</div>
         <List size="small" bordered={true} dataSource={this.dataSources} renderItem={(item: {name: string; link: string}) => <List.Item><a href={item.link} rel="noreferrer" target="_blank">{item.name}</a></List.Item>} />
