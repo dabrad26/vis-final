@@ -23,7 +23,7 @@ This app is deployed to Github pages. And the deployed version can be found here
 
 A recording of the application can be found here:
 
-[Recording of Interactions]('./Design/recording.mov)
+[Recording of Interactions](./Design/recording.mov)
 
 -------------
 
