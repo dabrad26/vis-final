@@ -21,10 +21,6 @@ This app is deployed to Github pages. And the deployed version can be found here
 
 [Deployed version](https://dabrad26.github.io/vis-final/)
 
-A GIF can be seen here when complete:
-
-<!-- GIF GOES HERE -->
-
 -------------
 
 ## Getting Started
