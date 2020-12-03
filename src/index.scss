@@ -6,6 +6,8 @@ body {
   @include paragraph();
 
   padding: $spacing-body;
+  overflow: auto !important;
+  touch-action: auto !important;
 }
 
 p {
