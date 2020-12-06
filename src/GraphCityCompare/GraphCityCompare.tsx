@@ -83,7 +83,8 @@ export default class GraphCityCompare extends React.Component<GraphCityComparePr
 
     svgGroup.append('g')
       .attr('transform', `translate(0, ${this.sizing.height - this.sizing.margin})`)
-      .call(d3.axisBottom(xScale));
+      .call(d3.axisBottom(xScale))
+      .attr('class', 'rotate-mobile');
 
     svgGroup.append('g')
       .call(d3.axisLeft(yScale));

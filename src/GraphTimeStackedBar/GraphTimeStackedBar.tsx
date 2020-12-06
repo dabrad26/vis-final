@@ -188,6 +188,7 @@ export default class GraphTimeStackedBar extends React.Component<GraphTimeStacke
     svgGroup.append('g')
       .attr('transform', `translate(0, ${this.sizing.height - this.sizing.margin})`)
       .call(d3.axisBottom(xScale))
+      .attr('class', 'rotate-mobile')
       .append('text')
       .attr('y', 50)
       .attr('x', (width - this.sizing.margin) / 2)

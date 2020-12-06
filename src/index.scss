@@ -45,4 +45,8 @@ h3 {
   .loading-overlay {
     right: 0;
   }
+
+  .rotate-mobile g.tick text {
+    transform: rotate(-55deg);
+  }
 }

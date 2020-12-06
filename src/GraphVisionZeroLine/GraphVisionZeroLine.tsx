@@ -56,6 +56,17 @@ export default class GraphVisionZeroLine extends React.Component<GraphVisionZero
     return Array.from(dayMap.values()).sort(this.sortDates);
   }
 
+  get yLabel(): string {
+    const {nycData, chicagoData, laData} = this.props;
+    const cities = [];
+
+    if (nycData.length) cities.push('New York City');
+    if (laData.length) cities.push('Los Angeles');
+    if (chicagoData.length) cities.push('Chicago');
+
+    return cities.length ? `Total in ${cities.join(', ')}` : 'Total';
+  }
+
   setupDom(): void {
     const {width, nycData, chicagoData, laData} = this.props;
 
@@ -110,7 +121,8 @@ export default class GraphVisionZeroLine extends React.Component<GraphVisionZero
 
     svgGroup.append('g')
       .attr('transform', `translate(0, ${this.sizing.height - this.sizing.margin})`)
-      .call(d3.axisBottom(xScale))
+      .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat(laData.length ? '%Y' : '%b %Y') as any))
+      .attr('class', 'rotate-mobile')
       .append('text')
       .attr('y', 50)
       .attr('x', (width - this.sizing.margin) / 2)
@@ -128,7 +140,7 @@ export default class GraphVisionZeroLine extends React.Component<GraphVisionZero
       .attr('text-anchor', 'middle')
       .attr('font-size', this.textStyle.size)
       .attr('fill', this.textStyle.color)
-      .text('Total');
+      .text(this.yLabel);
   }
 
   componentDidUpdate(prevProps: GraphVisionZeroLineProps): void {
